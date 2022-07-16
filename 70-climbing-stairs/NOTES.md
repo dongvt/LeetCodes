@@ -1,0 +1,1 @@
+Same problem, just different question as Fiboncci sequence.
