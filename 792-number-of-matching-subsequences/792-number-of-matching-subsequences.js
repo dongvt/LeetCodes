@@ -3,40 +3,29 @@
  * @param {string[]} words
  * @return {number}
  */
-    var numMatchingSubseq = function(s, words) {
-            let count=0;
-            let map=new Map();
-            for(let str of words){
-                if(map.has(str)){
-                    map.set(str,map.get(str)+1);
-                }
-                else{
-                    map.set(str,1);
-                }
-            }
+var numMatchingSubseq = function(s, words) {
+    
+    const isSub = (str) => {
+        let j = 0;
+        for(const l of s) {
+            if(l === str[j]) j++;
+            if(j === str.length) return true;
+        }
+        return false;
+    }
+    
+    const map = new Map();
+    for(const w of words) {
+        const val = map.get(w) | 0;
+        map.set(w,val+1);
+    }
+    
+    let count = 0;
+    for(const [k,v] of map) {
+        if(isSub(k)) count += v;
+    }
+    return count;
+    
+    
+};
 
-            for(let str of map.keys()){
-                if(isSubsequence(s,str)){
-                    count+=map.get(str);
-                }
-            }
-            return count;
-        };
-
-        function isSubsequence(a,b){
-            let i=0;
-            let j=0;
-            if(a.length<b.length){
-                return false;
-            }
-            while(j<b.length && i<a.length){
-                if(a[i]==b[j]){
-                    i++;
-                    j++;
-                }
-                else{
-                    i++;
-                }
-            }
-            return j==b.length;
-    };
