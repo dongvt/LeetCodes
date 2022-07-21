@@ -4,15 +4,28 @@
  * @return {string[]}
  */
 var topKFrequent = function(words, k) {
-    const wordMap = {}
-    words.map(word => {
-        wordMap[word] = (wordMap[word] || 0) + 1
-    })
-    const wordArr = []
-    for(let word of Object.keys(wordMap)) {
-        wordArr.push([word, wordMap[word]])
+    const pq = new MaxPriorityQueue({
+        compare: (a,b) => {
+            if(b[1] - a[1] !== 0) return b[1] - a[1];
+            else return a[0].localeCompare(b[0]);
+        }
+    });
+    
+    const map = new Map();
+    for(const w of words) {
+        const val = map.get(w) | 0;
+        map.set(w,val + 1);
     }
-    wordArr.sort((a,b)=>b[1] === a[1] ? a[0].localeCompare(b[0]) : b[1]-a[1])  //O(nlogn)
-    return wordArr.map((word) => word[0]).slice(0, k)
+    
+    for(const pair of map) {
+        pq.enqueue(pair);
+    }
+    
+    const res = [];
+    for(let i = 0 ; i < k; i++) {
+        res.push(pq.dequeue()[0]);
+    }
+    
+    return res;
     
 };
