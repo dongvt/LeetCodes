@@ -4,28 +4,24 @@
  * @return {number}
  */
 var numMatchingSubseq = function(s, words) {
-    
-    const isSub = (str) => {
-        let j = 0;
-        for(const l of s) {
-            if(l === str[j]) j++;
-            if(j === str.length) return true;
-        }
-        return false;
-    }
-    
-    const map = new Map();
+    const counts = new Array(26).fill().map(row => []);
+ 
     for(const w of words) {
-        const val = map.get(w) | 0;
-        map.set(w,val+1);
+        counts[w.charCodeAt(0) - 97].push([w,0]);
     }
     
-    let count = 0;
-    for(const [k,v] of map) {
-        if(isSub(k)) count += v;
+    let res = 0;
+    for(const l of s) {
+        const old = counts[l.charCodeAt(0) - 97];
+        counts[l.charCodeAt(0)-97] = [];
+        for(const pair of old) {
+            pair[1]++;
+            if(pair[1] === pair[0].length) res++;
+            else counts[pair[0].charCodeAt(pair[1]) - 97].push([...pair]);
+        }
     }
-    return count;
     
+    return res;
     
 };
 
