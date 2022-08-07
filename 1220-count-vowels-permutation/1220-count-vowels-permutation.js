@@ -32,7 +32,7 @@ var countVowelPermutation = function(n) {
                 break;
             case 'i':
                 res += dp(size + 1,'a') % 1000000007;
-                res += dp(size + 1,'e') % 1000000007 ;
+                res += dp(size + 1,'e') % 1000000007;
                 res += dp(size + 1,'o') % 1000000007;
                 res += dp(size + 1,'u') % 1000000007;
                 break;
