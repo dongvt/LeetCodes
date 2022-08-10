@@ -27,6 +27,6 @@ var verticalOrder = function(root) {
         if(node.right !== null) q.enqueue([node.right,idx + 1]);
     }
     
-    
+    //Since all the data is in the map, we just need to format it.
     return [...map].sort((a,b) => a[0] - b[0]).map(item => item[1]);
 };
