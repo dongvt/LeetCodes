@@ -10,11 +10,9 @@ class Solution {
         for (int i = 0; i < word.length(); i++) {
             char oldChar = charList[i];   
             
-            // replace the i-th character with all letters from a to z except the original character
             for (char c = 'a'; c <= 'z'; c++) {
                 charList[i] = c;
                 
-                // skip if the character is same as original or if the word is not present in the wordList
                 if (c == oldChar || !wordList.contains(String.valueOf(charList))) {
                     continue;
                 }
@@ -26,7 +24,6 @@ class Solution {
     }
     
     private void backtrack(String source, String destination) {
-        // store the path if we reached the endWord
         if (source.equals(destination)) {
             List<String> tempPath = new ArrayList<String>(currPath);
             Collections.reverse(tempPath);
@@ -48,7 +45,6 @@ class Solution {
         Queue<String> q = new LinkedList<>();
         q.add(beginWord);
         
-        // remove the root word which is the first layer in the BFS
         if (wordList.contains(beginWord)) {
             wordList.remove(beginWord);
         }
@@ -57,14 +53,12 @@ class Solution {
         isEnqueued.put(beginWord, 1);
         
         while (q.size() > 0)  {
-             // visited will store the words of current layer
             List<String> visited = new ArrayList<String>();
             
             for (int i = q.size() - 1; i >= 0; i--) {
                 String currWord = q.peek(); 
                 q.remove();
 
-                // findNeighbors will have the adjacent words of the currWord
                 List<String> neighbors = findNeighbors(currWord, wordList);
                 for (String word : neighbors) {
                     visited.add(word);
@@ -73,7 +67,6 @@ class Solution {
                         adjList.put(word, new ArrayList<String>());
                     }
                     
-                    // add the edge from word to currWord in the list
                     adjList.get(word).add(currWord);
                     if (!isEnqueued.containsKey(word)) {
                         q.add(word);
@@ -81,7 +74,6 @@ class Solution {
                     }
                 }
             }
-             // removing the words of the previous layer
             for (int i = 0; i < visited.size(); i++) {
                 if (wordList.contains(visited.get(i))) {
                     wordList.remove(visited.get(i));
@@ -91,14 +83,10 @@ class Solution {
     }
     
     public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
-        // copying the words into the set for efficient deletion in BFS
         Set<String> copiedWordList = new HashSet<>(wordList);
-        // build the DAG using BFS
         bfs(beginWord, endWord, copiedWordList);
         
-        // every path will start from the endWord
         currPath.add(endWord);
-        // traverse the DAG to find all the paths between endWord and beginWord
         backtrack(endWord, beginWord);
         
         return shortestPaths;
