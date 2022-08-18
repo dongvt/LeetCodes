@@ -1,14 +1,25 @@
 class SparseVector {
-    int [] globalNums = null;
+    public int [] globalNums = null;
+    public Set set = new HashSet<Integer>();
     SparseVector(int[] nums) {
         this.globalNums = nums;
+        for(int i = 0 ; i < nums.length; i++) {
+            int num = nums[i];
+            if(num != 0) {
+                set.add(i);
+            }
+        }
     }
     
 	// Return the dotProduct of two sparse vectors
     public int dotProduct(SparseVector vec) {
         int res = 0;
-        for(int i = 0; i < vec.globalNums.length; i++) {
-            res += vec.globalNums[i] * this.globalNums[i];
+        Iterator<Integer> it = this.set.iterator();
+        while(it.hasNext()) {
+            int idx = it.next();
+            if(vec.set.contains(idx)){
+                res += vec.globalNums[idx] * this.globalNums[idx];
+            }
         }
         return res;
     }
