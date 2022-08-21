@@ -7,9 +7,6 @@ class Solution {
         List<Node> A = new ArrayList();
 
         for (int i = 0; i <= N-M; ++i) {
-            // For each window [i, i+M), A[i] will contain
-            // info on what needs to change before we can
-            // reverse stamp at this window.
 
             Set<Integer> made = new HashSet();
             Set<Integer> todo = new HashSet();
@@ -22,8 +19,6 @@ class Solution {
 
             A.add(new Node(made, todo));
 
-            // If we can reverse stamp at i immediately,
-            // enqueue letters from this window.
             if (todo.isEmpty()) {
                 ans.push(i);
                 for (int j = i; j < i + M; ++j) if (!done[j]) {
@@ -33,14 +28,11 @@ class Solution {
             }
         }
 
-        // For each enqueued letter (position),
         while (!queue.isEmpty()) {
             int i = queue.poll();
 
-            // For each window that is potentially affected,
-            // j: start of window
             for (int j = Math.max(0, i-M+1); j <= Math.min(N-M, i); ++j) {
-                if (A.get(j).todo.contains(i)) {  // This window is affected
+                if (A.get(j).todo.contains(i)) { 
                     A.get(j).todo.remove(i);
                     if (A.get(j).todo.isEmpty()) {
                         ans.push(j);
