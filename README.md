@@ -3,7 +3,7 @@
 
 This repository is to keep record of my learning experience in leetcode. As Today (08/26/2022) I'm transitioning from `JavaScript` to `Java` for many reasons
 
-1. My work uses Java pretty much for everything.
+1. My work uses `Java` pretty much for everything.
 2. Interviewers seem to don't like `JavaScript` when doing algo. (I think this is my main reason)
 3. `Java` already has Collections and libraries to use `DS`, tool that is highly important when usong platforms like `CodeForces`
 4. `Java` is not the faster, but it is faster than `JavaScript`
