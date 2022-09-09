@@ -7,7 +7,7 @@ class Solution {
         for(int i = properties.length - 1; i >= 0  ; i--) {
             if(properties[i][1] < maxDefence) {
                 count++;
-            }
+            } else
             maxDefence = Math.max(maxDefence,properties[i][1]);
         }
         
