@@ -11,12 +11,12 @@ class Solution {
         
         //System.out.println(stack.toString());
         
-        StringBuilder sb = new StringBuilder();
+//         StringBuilder sb = new StringBuilder();
         
-        for(char c : stack) {
-            sb.append(c);
-        }
-        return sb.toString();
+//         for(char c : stack) {
+//             sb.append(c);
+//         }
+        return stack.toString();
     }
     
     public boolean backspaceCompare(String s, String t) {
