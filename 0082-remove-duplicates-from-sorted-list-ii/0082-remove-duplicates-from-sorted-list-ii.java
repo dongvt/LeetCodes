@@ -10,31 +10,26 @@
  */
 class Solution {
     public ListNode deleteDuplicates(ListNode head) {
-        Set<Integer> set = new HashSet<>();
-        Set<Integer> repeated = new HashSet<>();
-        ListNode it = head;
-        while(it != null) {
-            if(set.contains(it.val)) repeated.add(it.val);
-            else set.add(it.val);
-            it = it.next;
-        }
         
-        it = new ListNode(-1);
-        ListNode sentinel = it;
-        ListNode node = head;
-        while(node != null) {
+        ListNode sentinel = new ListNode(-1,head);
+        ListNode prev = sentinel;
+        while(head != null) {
             
-            if(repeated.contains(node.val)) {
-                node = node.next;
-                continue;
+            if(head.next != null && head.next.val == head.val) {
+                while(head.next != null && head.next.val == head.val)
+                    head = head.next;
+                prev.next = head.next;
+            }
+                
+            else {
+                prev = prev.next;
             }
             
-            it.next = node;
-            it = it.next;
-            node= node.next;
+                
+            head = head.next;
         }
         
-        it.next = null;
+       
         
         return sentinel.next;
     }
