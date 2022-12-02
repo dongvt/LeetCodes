@@ -22,7 +22,7 @@ class Solution {
             } else {
                 res.add(Arrays.asList(nums[index],nums[left++],nums[right--]));
                 //What happen if the left number is repeated?
-                //It will add the same list for each repetition. So, we need to avoid that
+                //It will add the same list for each repetition. So, we need to avoid that:
                 while(left < right && nums[left] == nums[left - 1]) left++;
             }
         }
