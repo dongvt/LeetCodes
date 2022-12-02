@@ -11,7 +11,6 @@ class Solution {
                 res = Math.min(res,j-i+1);
                 sum -= nums[i++];
             }
-            
             j++;
         }
         
