@@ -6,11 +6,7 @@ var diagonalSum = function(mat) {
     const n = mat.length;
     let sum = 0;
     for(let i = 0; i < n; i++) {
-        
-        //ant diag
-        const ax = n - i - 1;
-        const ay = i;
-        if(ax !== ay) sum += mat[ay][ax];
+        if(n - i - 1 !== i) sum += mat[i][n - i - 1];
         sum += mat[i][i];
     }
     
