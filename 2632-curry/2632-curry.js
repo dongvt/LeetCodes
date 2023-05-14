@@ -6,15 +6,9 @@ var curry = function(fn) {
     const originalArgs =  fn.length;
     let finalArgs = [];
     return function curried(...args) {
-        
-        finalArgs = [...finalArgs,...args]
-        if(finalArgs.length >= originalArgs) {
-            return fn(...finalArgs);
-        } 
-        
-        return (...newArgs) => {
-            return curried(...newArgs);
-        }
+        finalArgs = [...finalArgs,...args];
+        if(finalArgs.length === originalArgs) return fn(...finalArgs);
+        return (...newArgs) => curried(...newArgs); 
     };
 };
 
