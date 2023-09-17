@@ -14,12 +14,10 @@ var removeDuplicates = function(nums) {
             if(!sFlag) {
                 sFlag = true;
                 nums[++idx] = nums[i];
-               
             } else {
                 rem++;
             }
         }
-        
     }
     return nums.length - rem;
 };
