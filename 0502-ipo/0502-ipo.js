@@ -22,7 +22,7 @@ var findMaximizedCapital = function(k, w, profits, capital) {
             return b - a;
         }
     })
-    let i = 0
+    let i = 0; //Important, you need keep going with i, since the elements should be added to the pq only once
     for(let x = 0; x < k; x++) {
         for(; i < n && w >= projects[i].cap;i++) {
             pq.enqueue(projects[i].profit);
