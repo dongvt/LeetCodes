@@ -2,25 +2,24 @@
  * @param {number[]} nums
  * @return {number}
  */
-var deleteAndEarn = function(nums) {
-    const dSum = new Map();
-    let max = -Infinity;
+var deleteAndEarn = function (nums) {
+    //The trick here is to create a map for all the numbers from 1 to 10000
+    //The constraint is key here, since it is guarantied that the input
+    //won't have a number greater than 1000 and nums won't be bigger than 20000
+
+    const sums = new Array(10001).fill(0);
     for(const n of nums) {
-        const value = dSum.get(n) | 0;
-        dSum.set(n,value + n);
-        max = Math.max(max,n);
+        sums[n] += n;
     }
-    
-    const dp = new Array(max + 1);
-    dp[max] = dSum.get(max);
-    dp[max - 1] = Math.max(dSum.get(max),dSum.get(max - 1) | 0);
-    for(let i = max - 2; i >= 0; i--) {
-        const gain = dSum.get(i) | 0;
-        dp[i] = Math.max(dp[i + 1],dp[i + 2] + gain);
+
+    //Then just use the house robber over sums
+    const dp = new Array(sums.length);
+    dp[0] = sums[0];
+    dp[1] = Math.max(sums[0],sums[1]);
+
+    for(let i = 2; i < sums.length; i++) {
+        dp[i] = Math.max(dp[i - 1], dp[i - 2] + sums[i]);
     }
-    
-    return dp[0];
-    
-    
-    
-};
+    return dp.at(-1);
+
+}
