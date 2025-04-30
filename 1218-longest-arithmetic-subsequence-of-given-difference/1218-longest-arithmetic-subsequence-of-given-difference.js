@@ -11,9 +11,8 @@ var longestSubsequence = function(arr, difference) {
     let res = 1;
     for(const a of arr) {
         const prevLength = dp.get(a - difference) || 0;
-        const currentLength = prevLength + 1;
-        dp.set(a,currentLength);
-        res = Math.max(res,currentLength);
+        dp.set(a,prevLength + 1); //We add self to the current secuence.
+        res = Math.max(res,prevLength + 1);
     }
 
     return res;
