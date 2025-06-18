@@ -3,21 +3,20 @@
  * @return {number}
  */
 var removeDuplicates = function(nums) {
-    let idx = 0, rem = 0;
-    let sFlag = false;
-    for (let i = 0 ; i < nums.length; i++) {
-        if(i === idx) continue;
-        if(nums[idx] !== nums[i]) {
-            nums[++idx] = nums[i];
-            sFlag = false;
+    let count = 0;
+    const n = nums.length;
+    const set1 = new Set();
+    const set2 = new Set();
+    for(let i = 0 ; i < n; i++) {
+        if(set1.has(nums[i]) && set2.has(nums[i])){
+            count++;
         } else {
-            if(!sFlag) {
-                sFlag = true;
-                nums[++idx] = nums[i];
-            } else {
-                rem++;
-            }
+            nums[i - count] = nums[i];
+            if(!set1.has(nums[i]))
+                set1.add(nums[i]);
+            else set2.add(nums[i])
         }
     }
-    return nums.length - rem;
+
+    return n - count;
 };
