@@ -3,13 +3,14 @@
  * @return {boolean}
  */
 var canJump = function(nums) {
-    if(nums.length === 1) return true;
-    let long = nums[0];
-    let i = 0;
-    while(long > i) {
-        i++;
-        long = Math.max(long, nums[i] + i);
-        if(long >= nums.length - 1) return true; 
+    const n = nums.length;
+    let count = nums[0];
+    if(n === 1) return true;
+    if(count <= 0) return false;
+    for(let i = 1; i < n ; i++) {
+        count = Math.max(nums[i], count - 1);
+        if(count <= 0 && i !== n - 1) return false;
     }
-    return false;
+
+    return true;
 };
