@@ -4,12 +4,21 @@
  * @return {void} Do not return anything, modify nums in-place instead.
  */
 var rotate = function(nums, k) {
-    const n = nums.length;
     k = k % nums.length;
-    const newVal = [...nums.slice(n-k,n+1),...nums.slice(0,n-k)];
+    const n = nums.length;
+    const right = [];
+    for(let i = 1; i <= k; i++) {
+        right.push(nums[n - i]);
+    }
 
-    for(let i = 0; i < nums.length ;i++) {
-        nums[i] = newVal[i];
+    for(let i = n - 1; i >= k; i--) {
+        nums[i] = nums[i - k];
+    }
+
+    let i = 0;
+    while(right.length > 0) {
+        nums[i] = right.pop();
+        i++;
     }
 
 };
