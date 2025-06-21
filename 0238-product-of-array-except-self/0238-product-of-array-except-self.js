@@ -3,21 +3,30 @@
  * @return {number[]}
  */
 var productExceptSelf = function(nums) {
-    const ceros = nums.reduce((acu,curr) => curr === 0 ? acu + 1 : acu,0);
-    if(ceros > 1) return new Array(nums.length).fill(0);
-    
-    const product = nums.reduce((acu,curr) => acu * curr,1);
-    const res = [];
-
-    for(const n of nums) {
-        if(n !== 0) {
-            res.push(product / n);
+    let total = 1, ceros = 0;
+    for(let i = 0 ; i < nums.length; i++) {
+        if(nums[i] !== 0){
+            total *= nums[i];
         } else {
-            res.push( nums.reduce((acu,curr) => curr !== 0 ? acu * curr : acu,1))
-        }
-        
+            ceros ++;
+        }        
     }
 
-    return res;
+    if(ceros >= 2) return Array(nums.length).fill(0);
+
+    const res = [];
+    if(ceros === 1) {
+        for(const n of nums) {
+            if(n === 0) res.push(total);
+            else res.push(0);
+        }
+    } else {
+        for(const n of nums) {
+            res.push(total / n);
+        }
+    }
+
     
+    
+    return res;
 };
