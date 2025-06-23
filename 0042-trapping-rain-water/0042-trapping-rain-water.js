@@ -3,18 +3,31 @@
  * @return {number}
  */
 var trap = function(height) {
-    let left = 0, right = height.length - 1;
-    let ans = 0;
-    let left_max = 0, right_max = 0;
-    while (left < right) {
-        if (height[left] < height[right]) {
-            height[left] >= left_max ? (left_max = height[left]) : ans += (left_max - height[left]);
-            ++left;
+    //Two pointer approach
+    //Very simple, start wide, and then shrink
+    const n = height.length;
+    let left = 0, right = n - 1;
+    let maxLeft = 0, maxRight = 0;
+    let res = 0;
+    while(left < right) {
+        //If left elevation is less than the right one, update
+        if(height[left] < height[right]) {
+            if(maxLeft < height[left]) {
+                maxLeft = height[left];
+            } else { //Hey we have trapped water
+                res += maxLeft - height[left];
+            }
+            
+            left++;
+        } else {
+            if(maxRight < height[right]) {
+                maxRight = height[right];
+            } else { //Hey we are getting trapping water here
+                res += maxRight - height[right];
+            }
+            right--;
         }
-        else {
-            height[right] >= right_max ? (right_max = height[right]) : ans += (right_max - height[right]);
-            --right;
-        }
+        // console.log(res,left,right)
     }
-    return ans;
+    return res;
 };
